@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +48,7 @@ namespace PagerControl
             PagerControl pagerControl = (PagerControl)d;
             if (pagerControl.PageNums == null)
             {
-                pagerControl.PageNums = new List<int>();
+                pagerControl.PageNums = new ObservableCollection<int>();
             }
             if (pagerControl.TotalPages >= 1)
             {
@@ -114,7 +115,7 @@ namespace PagerControl
         // Using a DependencyProperty as the backing store for CurrentShowRows.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentShowRowsProperty =
             DependencyProperty.Register("CurrentShowRows", typeof(int), typeof(PagerControl), 
-                new FrameworkPropertyMetadata(default(int),new PropertyChangedCallback(OnCurrentShowRowsChanged)));
+                new FrameworkPropertyMetadata(50,new PropertyChangedCallback(OnCurrentShowRowsChanged)));
 
         private static void OnCurrentShowRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -122,15 +123,30 @@ namespace PagerControl
             pagerControl.OnCurrentShowRowsChanged((int)e.OldValue, (int)e.NewValue);
         }
 
-        public List<int> PageNums
+        public ObservableCollection<int> PageNums
         {
-            get { return (List<int>)GetValue(PageNumsProperty); }
+            get { return (ObservableCollection<int>)GetValue(PageNumsProperty); }
             set { SetValue(PageNumsProperty, value); }
         }
 
+
+
+        public ObservableCollection<int> PageShowRows
+        {
+            get { return (ObservableCollection<int>)GetValue(PageShowRowsProperty); }
+            set { SetValue(PageShowRowsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PageShowRows.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PageShowRowsProperty =
+            DependencyProperty.Register("PageShowRows", typeof(ObservableCollection<int>), typeof(PagerControl),
+                new PropertyMetadata(new ObservableCollection<int>() { 20, 50, 100, 200 }));
+
+
+
         // Using a DependencyProperty as the backing store for PageNums.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PageNumsProperty =
-            DependencyProperty.Register("PageNums", typeof(List<int>), typeof(PagerControl));
+            DependencyProperty.Register("PageNums", typeof(ObservableCollection<int>), typeof(PagerControl));
 
 
         public static readonly RoutedEvent CurrentPageNumChangedEvent =
@@ -200,7 +216,8 @@ namespace PagerControl
             cmbPageNums = GetTemplateChild("PART_PageNum") as ComboBox;
 
             cmbShowRows = GetTemplateChild("PART_ShowRows") as ComboBox;
-            this.CurrentShowRows = 50;
+            //PageShowRows = new ObservableCollection<int>() { 20, 50, 100, 200 };
+            //this.CurrentShowRows = 50;
 
         }
 

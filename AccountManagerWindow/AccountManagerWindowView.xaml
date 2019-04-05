@@ -59,6 +59,8 @@
                 <DataGridTextColumn Header="操作"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <pagerControl:PagerControl Grid.Row="2" TotalPages="10" TotalRow="100"></pagerControl:PagerControl>
+        <pagerControl:PagerControl x:Name="pager" Grid.Row="2" TotalPages="10" TotalRow="100" CurrentShowRows="100"
+                                   CurrentShowRowsChanged="PagerControl_CurrentShowRowsChanged"
+                                   CurrentPageNumChanged="PagerControl_CurrentPageNumChanged"></pagerControl:PagerControl>
     </Grid>
 </controls:MetroWindow>
