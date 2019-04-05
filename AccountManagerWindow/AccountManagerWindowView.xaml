@@ -1,0 +1,64 @@
+﻿<controls:MetroWindow x:Class="AccountManagerWindow.AccountManagerWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AccountManagerWindow"
+        xmlns:pagerControl="clr-namespace:PagerControl;assembly=PagerControl"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Style="{StaticResource WindowStyle}"
+        Title="账号管理" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <materialDesign:ColorZone Mode="PrimaryLight" Grid.Row="0"  CornerRadius="2" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <StackPanel Orientation="Horizontal" Margin="8">
+                <Border Background="White" MaxHeight="30" CornerRadius="3" ToolTip="用户名搜索">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{DynamicResource MaterialDesignToolButton}" 
+                                Command="{Binding SearchCommand}" x:Name="SearchButton"
+                                CommandParameter="{Binding ElementName=SearchBox, Path=Text}"
+                                Height="24" Width="24">
+                            <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
+                        </Button>
+                        <TextBox Grid.Column="1" Margin="5 0 0 0" KeyDown="Search_OnKeyDown"
+                             materialDesign:HintAssist.Hint="用户名" x:Name="SearchBox"
+                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                             MinWidth="200" VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
+                <Button Margin="8 0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Add" />
+                        <TextBlock Text="新增" Margin="8 0 0 0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </materialDesign:ColorZone>
+
+        <DataGrid Grid.Row="1" Margin="10" CanUserSortColumns="True"  CanUserAddRows="False"
+                       materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="姓名"></DataGridTextColumn>
+                <DataGridTextColumn Header="用户名"></DataGridTextColumn>
+                <DataGridTextColumn Header="角色"></DataGridTextColumn>
+                <DataGridTextColumn Header="创建时间"></DataGridTextColumn>
+                <DataGridTextColumn Header="创建人"></DataGridTextColumn>
+                <DataGridTextColumn Header="管理手机"></DataGridTextColumn>
+                <DataGridTextColumn Header="操作"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <pagerControl:PagerControl Grid.Row="2" TotalPages="10" TotalRow="100"></pagerControl:PagerControl>
+    </Grid>
+</controls:MetroWindow>

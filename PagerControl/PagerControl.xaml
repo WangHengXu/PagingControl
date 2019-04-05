@@ -1,0 +1,64 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:PagerControl">
+
+    <Style TargetType="{x:Type local:PagerControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate  TargetType="{x:Type local:PagerControl}">
+                    <Border x:Name="PART_BdMain" Grid.Row="2" 
+            Background="{Binding Bacground,RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
+            BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
+            BorderThickness="{Binding BorderThickness,RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}">
+                        <StackPanel Name="ToolsBarBottom" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" >
+                <Hyperlink x:Name="PART_First"  >
+                    <Run Text="首页 " ToolTip="首页" />
+                </Hyperlink>
+                <Hyperlink x:Name="PART_Prev" >
+                    <Run Text="上页 " ToolTip="上页" />
+                </Hyperlink>
+                <Hyperlink x:Name="PART_Next"  >
+                    <Run Text="下页 " ToolTip="下页" />
+                </Hyperlink>
+                <Hyperlink x:Name="PART_Last" >
+                    <Run Text="末页 " ToolTip="末页" />
+                </Hyperlink>
+                            </TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="第 " />
+                                <TextBlock x:Name="PART_PageCurrentPageNum" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                           Text="{Binding Path=CurrentPageNum,RelativeSource={RelativeSource TemplatedParent}}"  />
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="/" />
+                                <TextBlock x:Name="PART_PageTotalNum" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                              Text="{Binding Path=TotalPages,RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center" Text="页,共" />
+                                <TextBlock x:Name="PART_TotalRow" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                           Text="{Binding Path=TotalRow,RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="条记录" />
+                            </StackPanel>
+                            <ComboBox x:Name="PART_PageNum"   Margin="2,0"
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsEditable="True" MinWidth="30"
+                                      ItemsSource="{Binding Path= PageNums,RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0" >
+                <Hyperlink x:Name="PART_Goto" >
+                    <Run Text="跳转 " ToolTip="首页" />
+                </Hyperlink>
+                            </TextBlock>
+                            <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center" Text="行数:" />
+                            <ComboBox x:Name="PART_ShowRows" MinWidth="30"  Margin="2,0"
+                                      Text="{Binding Path= CurrentShowRows,RelativeSource={RelativeSource TemplatedParent}}">
+                                <ComboBoxItem>10</ComboBoxItem>
+                                <ComboBoxItem>20</ComboBoxItem>
+                                <ComboBoxItem>50</ComboBoxItem>
+                                <ComboBoxItem>100</ComboBoxItem>
+                                <ComboBoxItem>200</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>
